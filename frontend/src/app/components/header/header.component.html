@@ -1,0 +1,266 @@
+<header>
+  <nav id="header" class="fixed w-full z-30 top-0 bg-white shadow-lg">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-6">
+      <label for="menu-toggle" class="cursor-pointer md:hidden block">
+        <svg class="fill-current text-gray-900" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+          viewBox="0 0 20 20">
+          <title>menu</title>
+          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"></path>
+        </svg>
+      </label>
+      <input class="hidden" type="checkbox" id="menu-toggle" />
+
+      <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1" id="menu">
+        <nav>
+          <ul class="md:flex items-center justify-between text-base text-gray-700 md:pt-0">
+            <li>
+              <a class="inline-block no-underline hover:text-black hover:underline px-4" href="landing-page">Home</a>
+            </li>
+            <li>
+              <a class="inline-block no-underline hover:text-black hover:underline px-4" href="shop-page">Shop</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="order-1 md:order-2">
+        <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl"
+          href="#">
+          <img class="w-20" src="images/ktech.png" />
+        </a>
+      </div>
+
+      <div class="order-2 md:order-3 flex items-center" id="nav-content">
+
+        <a *ngIf="!loggedin()" (click)="toggleloginModal()" class="inline-block no-underline hover:text-black">
+          <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <circle fill="none" cx="12" cy="7" r="3" />
+            <path
+              d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
+          </svg>
+        </a>
+
+        <div>
+          <a *ngIf="loggedin()" href="Dashboard" class="inline-block no-underline hover:text-black">
+            <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <circle fill="none" cx="12" cy="7" r="3" />
+              <path
+                d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
+            </svg>
+          </a>
+        </div>
+
+        <a class="pl-3 inline-block no-underline hover:text-black cursor-pointer" (click)="toggleSidebar()">
+          <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24">
+            <path
+              d="M21,7H7.462L5.91,3.586C5.748,3.229,5.392,3,5,3H2v2h2.356L9.09,15.414C9.252,15.771,9.608,16,10,16h8 c0.4,0,0.762-0.238,0.919-0.606l3-7c0.133-0.309,0.101-0.663-0.084-0.944C21.649,7.169,21.336,7,21,7z M17.341,14h-6.697L8.371,9 h11.112L17.341,14z" />
+            <circle cx="10.5" cy="18.5" r="1.5" />
+            <circle cx="17.5" cy="18.5" r="1.5" />
+          </svg>
+        </a>
+
+        <button (click)="toggleModal()"
+          class="ml-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+          <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+          </svg>
+          <span>Download App</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" *ngIf="isModalOpen"
+  aria-modal="true" role="dialog" tabindex="-1">
+  <div class="relative w-screen max-w-sm border border-gray-600 bg-white px-4 py-8 sm:px-6 lg:px-8 rounded-lg">
+    <button (click)="toggleModal()" class="absolute end-4 top-4 text-gray-600 transition hover:scale-110">
+      <span class="sr-only">Close modal</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="text-center">
+      <h2 class="text-2xl font-bold text-gray-900">Download Our App</h2>
+      <p class="mt-2 text-gray-600">
+        Get the best experience on your mobile device. Download our app now!
+      </p>
+
+      <div class="mt-6 space-y-4">
+        <a href="#" class="block rounded bg-green-500 px-4 py-3 text-sm text-white transition hover:bg-green-600">
+          Download for Android
+        </a>
+        <a href="#" class="block rounded bg-blue-500 px-4 py-3 text-sm text-white transition hover:bg-blue-600">
+          Download for iOS
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="fixed inset-y-0 right-0 z-50 w-80 transform bg-gray-100 p-4 shadow-lg transition-transform duration-300 ease-in-out"
+  [class.translate-x-full]="!isSidebarOpen" [class.translate-x-0]="isSidebarOpen" role="dialog" tabindex="-1">
+  <button (click)="toggleSidebar()" class="absolute top-4 right-4 text-gray-600 transition hover:scale-110">
+    <span class="sr-only">Close sidebar</span>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+      class="h-5 w-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    </svg>
+  </button>
+
+  <div class="mt-4 space-y-6">
+    <!-- Your content here -->
+    <ul class="space-y-4">
+      <!-- Example items -->
+      <li *ngFor="let offer of cart" class="flex items-center gap-4">
+        <div>
+          <h3 class="text-sm text-gray-900">{{ offer.title }}</h3>
+          <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
+            <div>
+              <dt class="inline">Size:</dt>
+              <dd class="inline">XXS</dd>
+            </div>
+            <div>
+              <dt class="inline">Color:</dt>
+              <dd class="inline">White</dd>
+            </div>
+          </dl>
+        </div>
+      </li>
+      <!-- Add more items as needed -->
+    </ul>
+    <div class="space-y-4 text-center">
+      <!-- <a href="#" class="block rounded border border-gray-600 px-5 py-3 text-sm text-gray-600 transition hover:ring-1 hover:ring-gray-400">View my cart (2)</a> -->
+      <a (click)="toggleModal1()"
+        class="cursor-pointer block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">Checkout</a>
+      <a href="shop-page"
+        class="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600">Continue
+        shopping</a><br>
+      <p (click)="clearcart()"
+        class="inline-block text-sm text-gray-500 underline underline-offset-4 transition hover:text-gray-600">Clear
+        cart</p>
+    </div>
+  </div>
+</div>
+
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" *ngIf="loginmodal"
+  aria-modal="true" role="dialog" tabindex="-1">
+  <div class="relative w-screen max-w-sm border border-gray-600 bg-white px-4 py-8 sm:px-6 lg:px-8 rounded-lg">
+    <button (click)="toggleloginModal()" class="absolute end-4 top-4 text-gray-600 transition hover:scale-110">
+      <span class="sr-only">Close modal</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+
+      <!-- admin Name -->
+      <div class="mb-4">
+        <label for="username" class="block text-sm font-medium text-gray-700">admin Name</label>
+        <input type="text" id="user,ame" formControlName="username"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">Name is required.</div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="mb-4">
+        <label for="password" class="block text-sm font-medium text-gray-700">passowrd</label>
+        <input type="password" id="password" formControlName="password"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">password is required.</div>
+      </div>
+
+
+      <!-- Submit Button -->
+      <div class="mt-6 flex justify-end">
+        <button type="button" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded-md" (click)="loginmodal = false">
+          Cancel
+        </button>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" *ngIf="isModalOpen1"
+  aria-modal="true" role="dialog" tabindex="-1">
+  <div class="relative w-screen max-w-sm border border-gray-600 bg-white px-4 py-8 sm:px-6 lg:px-8 rounded-lg">
+    <button (click)="toggleModal1()" class="absolute end-4 top-4 text-gray-600 transition hover:scale-110">
+      <span class="sr-only">Close modal</span>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="h-5 w-5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <form [formGroup]="offerForm" (ngSubmit)="onSubmit()">
+      <!-- Cin -->
+      <div class="mb-4">
+        <label for="cin" class="block text-sm font-medium text-gray-700">CIN</label>
+        <input type="text" id="cin" formControlName="cin"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">cin is required.</div>
+      </div>
+
+      <!-- First Name -->
+      <div class="mb-4">
+        <label for="firstName" class="block text-sm font-medium text-gray-700">First Name</label>
+        <input type="text" id="firstName" formControlName="firstName"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">First Name is required.</div>
+      </div>
+
+      <!-- Last Name -->
+      <div class="mb-4">
+        <label for="lastName" class="block text-sm font-medium text-gray-700">Last Name</label>
+        <input type="text" id="lastName" formControlName="lastName"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">Last Name is required.</div>
+      </div>
+
+      <!-- Telephone -->
+      <div class="mb-4">
+        <label for="tel" class="block text-sm font-medium text-gray-700">Telephone</label>
+        <input type="text" id="tel" formControlName="tel"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">Telephone is required.</div>
+      </div>
+
+      <!-- Address -->
+      <div class="mb-4">
+        <label for="adresse" class="block text-sm font-medium text-gray-700">Address</label>
+        <input type="text" id="adresse" formControlName="adresse"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+        <div class="text-red-500 text-sm">Address is required.</div>
+      </div>
+
+      <!-- Gender -->
+      <div class="mb-4">
+        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+        <select id="gender" formControlName="gender"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+          <option value="" disabled>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+        </select>
+        <div class="text-red-500 text-sm">Gender is required.</div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6 flex justify-end">
+        <button type="button" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded-md" (click)="isModalOpen1 = false">
+          Cancel
+        </button>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md" [disabled]="offerForm.invalid">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

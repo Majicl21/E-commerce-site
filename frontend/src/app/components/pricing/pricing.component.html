@@ -1,0 +1,154 @@
+<!-- component -->
+<section class="bg-gray-900 py-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-extrabold text-white sm:text-5xl">
+        Pricing Plans
+      </h2>
+      <p class="mt-4 text-xl text-gray-400">
+        Simple, transparent pricing for your business needs.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Free Plan -->
+      <div *ngFor="let offer of offers" class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
+        <div class="mb-8">
+          <h3 class="text-2xl font-semibold text-white">{{offer.title}}</h3>
+          <p class="mt-4 text-gray-400">Get started with our basic features.</p>
+        </div>
+        <div class="mb-8">
+          <span class="text-5xl font-extrabold text-white">{{offer.tarif}}</span>
+          <span class="text-xl font-medium text-gray-400">/mo</span>
+        </div>
+        <ul class="mb-8 space-y-4 text-gray-400">
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{{offer.description}}</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>10 transactions per month</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Basic support</span>
+          </li>
+        </ul>
+        <a (click)="addToCart(offer)" class="block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+          Add to cart
+        </a>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="bg-gray-800 rounded-lg shadow-lg p-6 transform hover:scale-105 transition duration-300">
+        <div class="mb-8">
+          <h3 class="text-2xl font-semibold text-white">Enterprise</h3>
+          <p class="mt-4 text-gray-400">Tailored for large-scale deployments and custom needs.</p>
+        </div>
+        <div class="mb-8">
+          <span class="text-5xl font-extrabold text-white">Custom</span>
+        </div>
+        <ul class="mb-8 space-y-4 text-gray-400">
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Dedicated infrastructure</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Custom integrations</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Dedicated support team</span>
+          </li>
+          <li class="flex items-center">
+            <svg class="h-6 w-6 text-green-500 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>Premium SLAs</span>
+          </li>
+        </ul>
+        <a (click)="toggleModal()" class="cursor-pointer block w-full py-3 px-6 text-center rounded-md text-white font-medium bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600">
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+  *ngIf="isModalOpen"
+  aria-modal="true"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-lg w-full">
+    <h2 class="text-xl font-semibold mb-4">Create Offer</h2>
+    <form>
+      <!-- email -->
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Your email</label>
+        <input
+          type="text"
+          id="email"
+          formControlName="email"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <div class="text-red-500 text-sm">
+          Email is required.
+        </div>
+      </div>
+
+            <!-- subject -->
+            <div class="mb-4">
+              <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                formControlName="subject"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+              <div  class="text-red-500 text-sm">
+                Subject is required.
+              </div>
+            </div>
+
+      <!-- Description -->
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          rows="3"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        ></textarea>
+        <div  class="text-red-500 text-sm">
+          Description is required.
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="mt-6 flex justify-end">
+        <button type="button" class="mr-2 bg-gray-500 text-white px-4 py-2 rounded-md" (click)="isModalOpen = false">Cancel</button>
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-md">
+          Send
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
